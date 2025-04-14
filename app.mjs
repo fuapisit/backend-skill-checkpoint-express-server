@@ -1,14 +1,20 @@
 import express from "express";
-import connectionPool from "./utils/db.mjs";
+import questionRouter from "./routes/question.mjs";
+import answerRouter from "./routes/answer.mjs";
 
 const app = express();
-app.use(express.json()); //express อ่านค่าจาก body ได้
-const PORT = 4000;
+const port = 4000;
+
+app.use(express.json());
 
 app.get("/test", (req, res) => {
-  return res.json("✅ Server API is working");
+  return res.json("Server API is working 🚀");
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on http://localhost:${PORT}`);
+//Router
+app.use("/questions",questionRouter)
+app.use("/answers",answerRouter)
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });
